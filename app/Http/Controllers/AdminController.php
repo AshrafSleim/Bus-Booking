@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bus;
+use App\Models\Station;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Admin;
@@ -10,14 +12,6 @@ use Validator;
 use Auth;
 class AdminController extends Controller
 {
-    public function AddBus()
-    {
-        $users = auth()->user();
-        $success =  $users;
-
-        return response()->json($success, 200);
-    }
-
 
     public function adminLogin(Request $request)
     {
@@ -42,5 +36,33 @@ class AdminController extends Controller
         }
     }
 
+    public function AddBus(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'BusNumber' => 'required | unique:buses',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => $validator->errors()->all()]);
+        }
+        $Bus=new Bus();
+        $Bus->busNumber=$request->BusNumber;
+        $Bus->save();
+        $success =  $Bus;
+        return response()->json($success, 200);
+    }
+    public function AddStation(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'StationName' => 'required | unique:stations',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => $validator->errors()->all()]);
+        }
+        $Station=new Station();
+        $Station->StationName=$request->StationName;
+        $Station->save();
+        $success =  $Station;
+        return response()->json($success, 200);
+    }
 
 }

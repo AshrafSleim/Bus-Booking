@@ -17,5 +17,6 @@ use App\Http\Controllers\AdminController;
 Route::post('admin/login',[AdminController::class, 'adminLogin'])->name('adminLogin');
 Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:admin'] ],function(){
     // authenticated staff routes here
-    Route::get('addBus',[AdminController::class, 'AddBus']);
+    Route::post('addBus',[AdminController::class, 'AddBus']);
+    Route::post('addStation',[AdminController::class, 'AddStation']);
 });
