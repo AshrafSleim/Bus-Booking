@@ -19,4 +19,5 @@ Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:adm
     // authenticated staff routes here
     Route::post('addBus',[AdminController::class, 'AddBus']);
     Route::post('addStation',[AdminController::class, 'AddStation']);
+    Route::post('addTrip',[AdminController::class, 'AddTrip']);
 });
