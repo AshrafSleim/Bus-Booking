@@ -17,5 +17,6 @@ use App\Http\Controllers\UserController;
 Route::post('user/login',[UserController::class, 'userLogin'])->name('userLogin');
 Route::group( ['prefix' => 'user','middleware' => ['auth:user-api','scopes:user'] ],function(){
     // authenticated staff routes here
-    Route::get('getTrips',[UserController::class, 'getTrips']);
+    Route::post('getTrips',[UserController::class, 'getTrips']);
+    Route::post('booking',[UserController::class, 'booking']);
 });
